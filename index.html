@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="phoneMinusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="phoneQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="phonePlusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="phonePrice">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="caseMinusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="caseQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="casePlusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="casePrice">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -77,6 +77,59 @@
          </div>
       </div>
    </section>
+
+   <script>
+      // this section for Phone
+
+      const phonePlusBtn = document.getElementById("phonePlusBtn")
+      const phoneMinusBtn = document.getElementById("phoneMinusBtn")
+      const phonePrice = document.getElementById("phonePrice").innerText
+      const phonePriceNumber = spanTextUpdate(phonePrice)
+
+      setUpdateQuantity(phonePlusBtn, "phoneQuantity", 1)
+      setUpdateQuantity(phoneMinusBtn, "phoneQuantity", -1)
+      
+      
+
+      ///////////End phone section /////////
+
+
+
+
+      ///this function takes three parameter button, Quantity, increment and set Update Quantity
+      function setUpdateQuantity(btn, id, increment){
+         btn.addEventListener("click", function(){
+            let totalQuantity= getTotalQuantity(id, increment)
+
+            document.getElementById("phonePrice").innerText = totalQuantity*phonePriceNumber
+            
+         })   
+      }
+
+
+
+      ///this function return total Quantity  ///
+      function getTotalQuantity(id, increment){
+
+         const quantity = document.getElementById(id).value
+         const quantityNumber = parseInt(quantity)
+         let totalQuantity = quantityNumber+increment
+
+         ///if quantity value less or equal 0 then execute this if block ////
+         if(totalQuantity <= 0){
+            totalQuantity = 1
+         }
+
+         document.getElementById(id).value = totalQuantity
+         return totalQuantity
+      }
+
+
+      function spanTextUpdate(text){
+         const number = parseFloat(text);
+         return number
+      }
+   </script>
 </body>
 
 </html>
