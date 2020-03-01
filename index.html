@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subTotal">00</span></h5>
+                        <h5><span id="tax">10 %</span></h5>
+                        <h5>$<span id="total">00</span></h5>
                      </div>
                   </div>
                </div>
@@ -79,37 +79,74 @@
    </section>
 
    <script>
-      // this section for Phone
+      ///// this section for Phone ////
 
       const phonePlusBtn = document.getElementById("phonePlusBtn")
       const phoneMinusBtn = document.getElementById("phoneMinusBtn")
-      const phonePrice = document.getElementById("phonePrice").innerText
-      const phonePriceNumber = spanTextUpdate(phonePrice)
 
-      setUpdateQuantity(phonePlusBtn, "phoneQuantity", 1)
-      setUpdateQuantity(phoneMinusBtn, "phoneQuantity", -1)
-      
-      
+      /// set default subtotal and total value ///
+      priceUpdateStatus()
+
+      /// this section for Phone Plus Button ///
+      phonePlusBtn.addEventListener("click", function(){
+         const totalQuantity = getQuantityUpdate("phoneQuantity", 1)
+         const totalPhonePrice= spanTextUpdate("phonePrice", 1219)
+         priceUpdateStatus()
+                  
+       }) 
+       
+       /// this section for Phone Minus Button ///
+       phoneMinusBtn.addEventListener("click", function(){
+         const totalQuantity = getQuantityUpdate("phoneQuantity", -1)
+         const totalPhonePrice= spanTextUpdate("phonePrice", -1*1219)
+         priceUpdateStatus()
+                  
+       }) 
 
       ///////////End phone section /////////
 
+      ////// Case Section /////
+      const casePlusBtn = document.getElementById("casePlusBtn")
+      const caseMinusBtn = document.getElementById("caseMinusBtn")
 
 
+      /// this section for Case Plus Button ///
+      casePlusBtn.addEventListener("click", function(){
+         const totalQuantity = getQuantityUpdate("caseQuantity", 1)
+         const totalCasePrice = spanTextUpdate("casePrice", 59)
+         
+         priceUpdateStatus()         
+       }) 
+       
 
-      ///this function takes three parameter button, Quantity, increment and set Update Quantity
-      function setUpdateQuantity(btn, id, increment){
-         btn.addEventListener("click", function(){
-            let totalQuantity= getTotalQuantity(id, increment)
+       /// this section for Case minus Button ///
+       caseMinusBtn.addEventListener("click", function(){
+         const totalQuantity = getQuantityUpdate("caseQuantity", -1)
+         const totalCasePrice= spanTextUpdate("casePrice",-1 * 59)
+         priceUpdateStatus()  
+       }) 
 
-            document.getElementById("phonePrice").innerText = totalQuantity*phonePriceNumber
-            
-         })   
+      ///////////End Case section /////////
+
+
+      /// function section start here///
+      ///this function get card span price and update , return card total price  ///
+
+      function spanTextUpdate(id, givenPrice){
+         const getPrice = document.getElementById(id).innerText
+         const getPriceNumber = parseFloat(getPrice)
+         const totalPrice = getPriceNumber + givenPrice
+
+         if(totalPrice<=0){
+            totalPrice = givenPrice;
+         }
+
+         document.getElementById(id).innerText = totalPrice
+         return totalPrice
       }
 
-
-
-      ///this function return total Quantity  ///
-      function getTotalQuantity(id, increment){
+       ///this function return total Quantity  ///
+      function getQuantityUpdate(id, increment){
 
          const quantity = document.getElementById(id).value
          const quantityNumber = parseInt(quantity)
@@ -124,11 +161,24 @@
          return totalQuantity
       }
 
+       ///this function handel subtotal, tax and total  ///
+      function priceUpdateStatus(){
+         const getPhonePrice = document.getElementById("phonePrice").innerText
+         const getCasePrice = document.getElementById("casePrice").innerText
+         const phonePriceNumber = parseFloat(getPhonePrice)
+         const casePriceNumber = parseFloat(getCasePrice)
+         /// total calculation 
+         const subTotal = phonePriceNumber + casePriceNumber
+         const tax = (10*subTotal)/100
+         const total = subTotal + tax
 
-      function spanTextUpdate(text){
-         const number = parseFloat(text);
-         return number
+         document.getElementById("subTotal").innerText = subTotal
+         document.getElementById("total").innerText = total
+
       }
+
+      
+
    </script>
 </body>
 
