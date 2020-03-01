@@ -86,21 +86,21 @@
       const phoneDefaultPrice = defaultPrince("phonePrice")
 
       /// set default subtotal and total value ///
-      priceUpdateStatus()
+      updateTotalPrice()
 
       /// this section for Phone Plus Button ///
       phonePlusBtn.addEventListener("click", function(){
          const totalQuantity = getQuantityUpdate("phoneQuantity", 1)
-         const totalPhonePrice= spanTextUpdate("phonePrice", phoneDefaultPrice)
-         priceUpdateStatus()
+         updateSpanText("phonePrice", phoneDefaultPrice, totalQuantity)
+         updateTotalPrice()
                   
        }) 
        
        /// this section for Phone Minus Button ///
        phoneMinusBtn.addEventListener("click", function(){
          const totalQuantity = getQuantityUpdate("phoneQuantity", -1)
-         const totalPhonePrice= spanTextUpdate("phonePrice", -1 * phoneDefaultPrice)
-         priceUpdateStatus()
+         updateSpanText("phonePrice", phoneDefaultPrice, totalQuantity)
+         updateTotalPrice()
                   
        }) 
 
@@ -115,36 +115,27 @@
       /// this section for Case Plus Button ///
       casePlusBtn.addEventListener("click", function(){
          const totalQuantity = getQuantityUpdate("caseQuantity", 1)
-         const totalCasePrice = spanTextUpdate("casePrice", caseDefaultPrice)
-         
-         priceUpdateStatus()         
+         updateSpanText("casePrice", caseDefaultPrice, totalQuantity)
+         updateTotalPrice()        
        }) 
        
 
        /// this section for Case minus Button ///
        caseMinusBtn.addEventListener("click", function(){
          const totalQuantity = getQuantityUpdate("caseQuantity", -1)
-         const totalCasePrice= spanTextUpdate("casePrice",-1 * caseDefaultPrice)
-         priceUpdateStatus()  
+         updateSpanText("casePrice", caseDefaultPrice, totalQuantity)
+         updateTotalPrice() 
        }) 
 
       ///////////End Case section /////////
 
 
       /// function section start here///
-      ///this function get card span price and update , return card total price  ///
+      ///this function get id, item Price, total Item and set total Itim price into crad item Price  ///
 
-      function spanTextUpdate(id, givenPrice){
-         const getPrice = document.getElementById(id).innerText
-         const getPriceNumber = parseFloat(getPrice)
-         const totalPrice = getPriceNumber + givenPrice
-
-         if(totalPrice<=0){
-            totalPrice = givenPrice;
-         }
-
+      function updateSpanText(id, defaultPrice, totalItem){
+         const totalPrice = defaultPrice * totalItem;
          document.getElementById(id).innerText = totalPrice
-         return totalPrice
       }
 
        ///this function return total Quantity  ///
@@ -156,15 +147,15 @@
 
          ///if quantity value less or equal 0 then execute this if block ////
          if(totalQuantity <= 0){
-            totalQuantity = 1
+            totalQuantity = 0
          }
 
          document.getElementById(id).value = totalQuantity
          return totalQuantity
       }
 
-       ///this function handel subtotal, tax and total  ///
-      function priceUpdateStatus(){
+       ///this function handel subtotal, tax and total  and Update///
+      function updateTotalPrice(){
          const getPhonePrice = document.getElementById("phonePrice").innerText
          const getCasePrice = document.getElementById("casePrice").innerText
          const phonePriceNumber = parseFloat(getPhonePrice)
