@@ -59,14 +59,14 @@
 
                      <div class="col-md-8">
                         <h5>Subtotal: </h5>
-                        <h5>Tax:</h5>
+                        <h5>Tax:(<small>10%</small>)</h5>
                         <h5>Total:</h5>
                      </div>
 
                      <div class="col-md-4 status">
                         <h5>$ <span id="subTotal">00</span></h5>
-                        <h5><span id="tax">10 %</span></h5>
-                        <h5>$<span id="total">00</span></h5>
+                        <h5>$ <span id="tax">00</span></h5>
+                        <h5>$ <span id="total">00</span></h5>
                      </div>
                   </div>
                </div>
@@ -170,10 +170,11 @@
          /// total calculation 
          const subTotal = phonePriceNumber + casePriceNumber
          const tax = (10*subTotal)/100
-         const total = subTotal + tax
+         const total = Math.floor(subTotal + tax)
 
-         document.getElementById("subTotal").innerText = subTotal
-         document.getElementById("total").innerText = total
+         document.getElementById("subTotal").innerText = subTotal.toLocaleString()
+         document.getElementById("tax").innerText = tax.toLocaleString()
+         document.getElementById("total").innerText = total.toLocaleString()
 
       }
 
