@@ -83,6 +83,7 @@
 
       const phonePlusBtn = document.getElementById("phonePlusBtn")
       const phoneMinusBtn = document.getElementById("phoneMinusBtn")
+      const phoneDefaultPrice = defaultPrince("phonePrice")
 
       /// set default subtotal and total value ///
       priceUpdateStatus()
@@ -90,7 +91,7 @@
       /// this section for Phone Plus Button ///
       phonePlusBtn.addEventListener("click", function(){
          const totalQuantity = getQuantityUpdate("phoneQuantity", 1)
-         const totalPhonePrice= spanTextUpdate("phonePrice", 1219)
+         const totalPhonePrice= spanTextUpdate("phonePrice", phoneDefaultPrice)
          priceUpdateStatus()
                   
        }) 
@@ -98,7 +99,7 @@
        /// this section for Phone Minus Button ///
        phoneMinusBtn.addEventListener("click", function(){
          const totalQuantity = getQuantityUpdate("phoneQuantity", -1)
-         const totalPhonePrice= spanTextUpdate("phonePrice", -1*1219)
+         const totalPhonePrice= spanTextUpdate("phonePrice", -1 * phoneDefaultPrice)
          priceUpdateStatus()
                   
        }) 
@@ -108,12 +109,13 @@
       ////// Case Section /////
       const casePlusBtn = document.getElementById("casePlusBtn")
       const caseMinusBtn = document.getElementById("caseMinusBtn")
+      const caseDefaultPrice = defaultPrince("casePrice")
 
 
       /// this section for Case Plus Button ///
       casePlusBtn.addEventListener("click", function(){
          const totalQuantity = getQuantityUpdate("caseQuantity", 1)
-         const totalCasePrice = spanTextUpdate("casePrice", 59)
+         const totalCasePrice = spanTextUpdate("casePrice", caseDefaultPrice)
          
          priceUpdateStatus()         
        }) 
@@ -122,7 +124,7 @@
        /// this section for Case minus Button ///
        caseMinusBtn.addEventListener("click", function(){
          const totalQuantity = getQuantityUpdate("caseQuantity", -1)
-         const totalCasePrice= spanTextUpdate("casePrice",-1 * 59)
+         const totalCasePrice= spanTextUpdate("casePrice",-1 * caseDefaultPrice)
          priceUpdateStatus()  
        }) 
 
@@ -176,6 +178,13 @@
          document.getElementById("tax").innerText = tax.toLocaleString()
          document.getElementById("total").innerText = total.toLocaleString()
 
+      }
+
+      /// this function return default Price ///
+      function defaultPrince(id){
+         const price = document.getElementById(id).innerText
+         const priceNumber = parseFloat(price)
+         return priceNumber
       }
 
       
